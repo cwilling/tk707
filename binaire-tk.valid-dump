@@ -1,0 +1,29 @@
+binaire-tk.mid:
+SMF
+4	HeaderLen: 6
+8	Format: 0
+a	Tracks: 1
+c	Divisions: 0x0180 (384)
+12	TrackLen: 42
+16	[0x00]=0 at=0 me=0xff type=0x51 [0x03]=3 0x07 0xa1 0x20
+	 Tempo=500000 (120 BPM, 1.302 msec/delta)
+1d	[0x00]=0 at=0 me=0x99 0x11 0x00
+	 Note on (ch=9, note=17, velocity=0)
+21	[0x00]=0 at=0 me=0x23 0x7f
+	 Note on (ch=9, note=35, velocity=127)
+24	[0x03]=3 at=3 me=0x23 0x00
+	 Note on (ch=9, note=35, velocity=0)
+27	[0x82,0x7d]=381 at=384 me=0x23 0x7f
+	 Note on (ch=9, note=35, velocity=127)
+2b	[0x03]=3 at=387 me=0x23 0x00
+	 Note on (ch=9, note=35, velocity=0)
+2e	[0x82,0x7d]=381 at=768 me=0x23 0x7f
+	 Note on (ch=9, note=35, velocity=127)
+32	[0x03]=3 at=771 me=0x23 0x00
+	 Note on (ch=9, note=35, velocity=0)
+35	[0x82,0x7d]=381 at=1152 me=0x23 0x7f
+	 Note on (ch=9, note=35, velocity=127)
+39	[0x03]=3 at=1155 me=0x23 0x00
+	 Note on (ch=9, note=35, velocity=0)
+3c	[0x00]=0 at=1155 me=0xff type=0x2f [0x00]=0 
+	 End of Track

@@ -1,0 +1,374 @@
+@c
+@c    This file is part of tk707.
+@c
+@c    Copyright (C) 2000, 2001, 2002, 2003, 2004 Chris Willing and Pierre Saramito 
+@c
+@c    tk707 is free software; you can redistribute it and/or modify
+@c    it under the terms of the GNU General Public License as published by
+@c    the Free Software Foundation; either version 2 of the License, or
+@c    (at your option) any later version.
+@c
+@c    Foobar is distributed in the hope that it will be useful,
+@c    but WITHOUT ANY WARRANTY; without even the implied warranty of
+@c    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+@c    GNU General Public License for more details.
+@c
+@c    You should have received a copy of the GNU General Public License
+@c    along with Foobar; if not, write to the Free Software
+@c    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+@c
+@c -------------------------------------------------------------
+@c    Installation
+@c -------------------------------------------------------------
+@node Installation,,, Top
+@menu
+* Building tk707::
+* Configure options::
+* Install::
+* Running::
+* Building the documentation::
+* Comments and bugs corrections::
+* My card has no midi render::
+@end menu
+
+@cindex Linux system
+@cindex tcl/tk libraries
+@cindex Alsa audio library
+@cindex midi render
+
+The TK-707 installation requires:
+@itemize @bullet
+	@item C compiler: to compile the source code.
+	@item TCL/TK version 8.0 or later.
+Tested up to TCL/TK 8.3. Available free from @url{http://www.scriptics.com}
+	@item Alsa: audio installation (at least version 0.5.0),
+available free from @url{http://www.alsa-project.org}
+	@item a sound card supported by Alsa.
+@end itemize
+
+and, at least one of these MIDI renders:
+@itemize @bullet
+	@item an internal MIDI render hardware in your card.
+	@item an external MIDI module with drum sounds (Tested Roland D-110 and TR-707).
+	@item or any Alsa supported basic 
+sound card together with the @code{timidity} or the @code{iiwusynth} 
+	MIDI synthesis software installed.
+@end itemize
+
+Clearly, if you have neither a MIDI card nor an external MIDI module,
+you can successfully manage MIDI files by a MIDI software sequencer.
+See below.
+
+So far tested on
+@itemize @bullet
+	@item Linux - Debian 3.0 (kernel 2.4.18) with SB Live ! sound card 
+	@item Linux - Slackware 7.0 (kernel 2.2.14) with ESS1868 sound card 
+	@item Linux - Mandrak (kernel 2.2.13-7mdk)
+	@item Linux - Redhat 6.0 (kernel 2.2.5) with Ensonic 1370 sound card
+@end itemize
+
+@section Building @code{tk707}
+@node 	 Building tk707,,, Installation
+
+
+@example
+@cartouche
+	configure
+	make
+@end cartouche
+@end example
+
+The program consists of Tcl/Tk for the gui and C code for outputting
+the midi data.
+The Tcl/Tk code is compiled with the C code.
+The compiled target @code{tk707} is a self contained binary.
+
+@c --------------------------------------------------------------------
+@section Configure options
+@node 	 Configure options,,, Installation
+@c --------------------------------------------------------------------
+
+During the configuration step, you could also provide 
+to the @code{configure} script some 
+non-standard locations of the Alsa or Tcl/Tk libraries.
+On my Debian 3.0 installation, I use: 
+@example
+	configure --with-tcl-includes=/usr/include/tcl8.3
+@end example
+A more general example writes:
+@example
+	configure --with-alsa-prefix=/usr/sound/lib \
+	  --with-alsa-inc-prefix=/usr/sound/include \
+	  --with-tcl-includes=/new/include   --with-tcl-libs=/usr/new/lib  \
+	  --with-tk-includes=/usr/new/include --with-tk-libs=/usr/new/lib 
+	make
+@end example
+
+Enter @code{configure --help} for a complete list of available options.
+
+@c In a previous method, the C code was compiled and becomes the interpreter for
+@c the Tcl/Tk code which was left as the executable script.
+@c 
+@c For normal execution there is little or no perceptible difference in
+@c performance because since version 8.0 of Tcl/Tk the script is converted
+@c to byte-code prior to execution. I have left the second method because during
+@c development changes can be made to the Tcl/Tk script and then run without
+@c a recompilation.
+
+It could also be useful to send compiler options to the
+@code{configure} script.
+@example
+	CFLAGS="-O0" configure
+	make
+@end example
+Indeed, by default, @code{gcc} compiler
+optimization flags are set to the maximum, i.e @code{-O9}. This
+is not supported for old @code{gcc} versions, where this feature
+failed on some combinations of Linux kernel versions and @code{gcc}
+version (e.g. Mandrake with kernel @code{Linux-2.2.13-7mdk} and 
+@code{pgcc-2.91.66}). Either update our environment or use lower
+optimization flags.
+
+
+@c --------------------------------------------------------------------
+@section Installation
+@node 	 Install,,, Installation
+@c --------------------------------------------------------------------
+@example
+@cartouche
+	make install
+@end cartouche
+@end example
+
+The default installation directory is @file{/usr/local/bin} but this can be
+changed by using an extra configuration option:
+
+@example
+	configure --prefix=/users/angela/music
+	make install
+@end example
+
+will build and install @code{tk707} into the installation directory 
+@file{/users/angela/music/bin} as @code{tk707}.
+
+@section Running
+@node 	 Running,,, Installation
+
+If installation was done as in previous step, and assuming the installation
+directory is in your execution path, then the program is started with
+
+@example
+@cartouche
+	tk707
+@end cartouche
+@end example
+
+@cindex demonstration file @file{demo.dat}
+@cindex @code{File->Load} menu
+
+	A sample song is in @file{demo.dat} which can be
+loaded from the @code{File->Load Demo} menu. After loading, click the @key{START}
+button and you should hear something if your
+hardware is set up correctly.
+
+@cindex midi output port
+
+When @code{tk707} is first started, a suitable output port needs to be selected.
+A selection gui comes up before the main TK-707 window to make this choice.
+The list on the right hand side should contain one or more entries from
+which to choose (don't worry about the input port list on the left).
+Double click on the available output port you want to use, and it should
+be entered into the Selected Output box near the bottom. Now you can
+click on the OK button to use the selected output port for this invocation
+of TK-707. You can also click the SAVE button first to save this information
+(in @file{~/.tk707rc}) so that you don't need to make the selection next time you
+run TK-707. Note that @file{~/.tk707rc} is a plain text file which can be edited
+by hand if you want to.
+
+Alternatively, if you know what port you want to use, run @code{tk707} with
+the @code{-p} option, e.g.
+@example
+	tk707 -p 65:0
+@end example
+
+Use of the @code{-p} option overrides any setting in the @file{~/.tk707rc} file.
+
+A list of suitable ports can also be obtained with the @code{-l} option, e.g.
+@example
+	tk707 -l
+@end example
+
+@c --------------------------------------------------------------------
+@section Building the documentation
+@node 	 Building the documentation,,, Installation
+@c --------------------------------------------------------------------
+
+@cindex file @file{tk707.info} documentation
+
+The documentation in @file{.info} format, suitable for emacs,
+is contained in the distribution. You can browse it:
+@example
+@cartouche
+	info -f tk707.info
+@end cartouche
+@end example
+
+@cindex file @file{tk707.html} documentation
+If you have the @code{texi2html} tool, the @code{html}
+version has been generated during the installation:
+@example
+@cartouche
+	netscape tk707_toc.html
+@end cartouche
+@end example
+
+@cindex file @file{tk707.dvi} documentation
+If you have @TeX{} installed, a pretty version of the documentation
+is available:
+@example
+@cartouche
+	make dvi
+	xdvi tk707.dvi
+@end cartouche
+@end example
+
+@cindex file @file{tk707.ps} documentation
+and also for printing:
+@example
+@cartouche
+	dvips tk707.dvi -o tk707.ps
+	lpr tk707.ps
+@end cartouche
+@end example
+
+Now, read the documentation and enjoy @code{tk707}.
+
+@c --------------------------------------------------------------------
+@section Comments, bug corrections and future versions
+@node 	 Comments and bugs corrections,,, Installation
+@c --------------------------------------------------------------------
+
+We are keen for people to try it and send comments and suggestions.
+
+Please, send comments,
+corrections, additions, bugs etc.. to
+@email{chris@@vislab.usyd.edu.au} and
+@email{pierre.saramito@@imag.fr}
+
+Future versions from the TK-707 home page:
+@itemize @bullet
+	@item Australie: @url{http://www.vislab.usyd.edu.au/staff/chris/tk707}
+	@item Europe: @url{http://www-lmc.imag.fr/lmc-edp/Pierre.Saramito/tk707}
+@end itemize
+
+@c --------------------------------------------------------------------
+@section My card has no midi render...
+@node 	 My card has no midi render,,, Installation
+@c --------------------------------------------------------------------
+
+@cindex midi render: @code{timidity} software
+@cindex Alsa audio library
+@cindex sound card without midi
+
+Don't worry, you are able to hear midi file with
+a basic audio sound card: 
+the @code{timidity} code is able to
+provides an Alsa sequencer interface which receives
+events and plays it in real-time.
+
+@code{timidity} is a public domain code available
+at @url{http://www.goice.co.jp/member/mo/timidity}. 
+
+On this mode, @code{timidity} works
+purely as software (real-time) midi render.
+There is no scheduling routine in this interface,
+since all scheduling is done by Alsa sequencer core.
+
+So, download @code{timidity} (at least version 2.10.0)
+and install as follow:
+@example
+        configure --enable-server --enable-alsaseq --enable-alsatest \
+		--enable-audio=alsa,wav,au,aiff,list,oss
+	make install
+@end example
+
+@cindex sound patch files (GUS)
+
+@code{timidity} software emulates the best sound cards.
+It requires some Gravis Ultra Sound (GUS) patches describing musical
+instruments.
+The public domain EAW sound patch suite can be downloaded at
+        @url{http://www.stardate.bc.ca/eawpatches/html/default.htm}
+This his a complete and high quality library,
+updated frequently.
+Especially, download the @code{gsdrums} percussion instrument library.
+
+Install these files in the @code{timidity} directory,
+usually @code{/usr/share/timidity}.
+
+For invoking Alsa sequencer interface, run @code{timidity} as follows:
+@example
+      timidity -iA -B2,8 -Os1l -s 44100 &
+@end example
+
+The fragment size can be adjustable.  The smaller number gives
+better real-time response.  Then @code{timidity} shows new port numbers
+which were newly created (128:0 and 128:1 below).
+
+Finally, run @code{tk707}:
+@example
+      tk707 -p 128:0
+@end example
+
+The @code{timidity} render is very flexible and rich, since you
+can add any instrument in your library by using SF2 or GUS patch files.
+This modular approach is not always supported by all midi card hardware renders.
+Thus,  the software MIDI render solution is fruitful,
+and could be installed, even if you have a hardware or external MIDI solution.
+
+@c TO BE TESTED !!!
+@c ================
+@c @c --------------------------------------------------------------------
+@c @section I have no sound card at all...
+@c @node    I have no sound card at all,,, Installation
+@c @c --------------------------------------------------------------------
+@c 
+@c @cindex PC Speaker
+@c 
+@c Don't worry, you are able to hear midi files generated by @code{tk707} !
+@c Indeed, all computer have an internal PC Speaker, usually used for the beep,
+@c and you will use it for more elaborated sounds.
+@c 
+@c This procedure has been tested on a @code{2.2.8} kernel version.
+@c Nevertheless, patches exists for others kernel versions.
+@c @enumerate
+@c @item Fist, download the additional PC Speaker module and kernel patch:
+@c @itemize
+@c 	@item @url{ftp.comunit.net/pub/soft/kernel/pcsndrv-1.2.tgz}
+@c 	@item @url{ftp.comunit.net/pub/soft/kernel/patch-pcsp-soundcore-2.2.8.gz}
+@c @end itemize
+@c 
+@c @item Second, configure your kernel with modules, sound and 
+@c the @emph{Internal PC speaker support} (@code{CONFIG_PCSP}) as a module.
+@c Install it as usual, and install modules too.
+@c Reboot; then your new kernel is running,
+@c and you are be able to hear @file{.au} and other audio files.
+@c See the @code{INSTALL} file for details on the @code{pcsndrv-1.2}
+@c tools, such as @code{vplay}.
+@c 
+@c @item Current Alsa version @code{0.5.9c} at this date do not recognize
+@c the PC Speaker as a sound card...
+@c so, configure Alsa with the @code{--with-cards=snd-card-dummy} option
+@c and install it.
+@c 
+@c @item Next, configure and install @code{timidity} as a Alsa MIDI render
+@c (See the previous paragraph).
+@c This code will convert MIDI files to audio format, and then
+@c send it to your Internal Speaker.
+@c 
+@c @item Finally, configure and install @code{tk707} as usual.
+@c 
+@c 
+@c @end enumerate
+
+

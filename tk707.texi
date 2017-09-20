@@ -1,0 +1,805 @@
+\input texinfo @c -*-texinfo-*-
+@c
+@c    This file is part of tk707.
+@c
+@c    Copyright (C) 2000, 2001, 2002, 2003, 2004 Chris Willing and Pierre Saramito 
+@c
+@c    tk707 is free software; you can redistribute it and/or modify
+@c    it under the terms of the GNU General Public License as published by
+@c    the Free Software Foundation; either version 2 of the License, or
+@c    (at your option) any later version.
+@c
+@c    Foobar is distributed in the hope that it will be useful,
+@c    but WITHOUT ANY WARRANTY; without even the implied warranty of
+@c    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+@c    GNU General Public License for more details.
+@c
+@c    You should have received a copy of the GNU General Public License
+@c    along with Foobar; if not, write to the Free Software
+@c    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+@c
+@c -------------------------------------------------------------
+@c             PREAMBLE
+@c -------------------------------------------------------------
+@c %**start of header
+@setfilename tk707.info
+@settitle    The TK-707 Rhythm Composer
+@finalout
+@setchapternewpage odd
+@c %**end of header
+
+@include version.texi
+
+@ifinfo
+This program is intended to mimic the operation of
+Roland's TR-707 Rhythm Composer (successor to the TR-606 and
+precursor to TR-808 and TR-909).
+
+Copyright @copyright{} 2000, 2001 by Chris Willing and Pierre Saramito. All rights reserved.
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+@ignore
+Permission is granted to process this file through TeX and print the
+results, provided the printed document carries copying permission
+notice identical to this one except for the removal of this paragraph
+(this paragraph not being relevant to the printed manual).
+
+@end ignore
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+@end ifinfo
+
+@c -------------------------------------------------------------
+@titlepage
+@title    TK-707
+@subtitle The TK-707 Rhythm Composer
+@subtitle Version @value{VERSION}
+@subtitle @value{UPDATED}
+@author   by Chris Willing and Pierre Saramito
+
+@c -------------------------------------------------------------
+@page
+@vskip 0pt plus 1filll
+Copyright @copyright{} 2000, 2001 by Chris Willing and Pierre Saramito. All rights reserved.
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+@end titlepage
+
+
+@ifinfo
+@node Top,,, (dir)
+@top
+This document is a brief statement of requirements to run tk707
+and a very introductory explanation of how to run it. This might
+be just enough for people not familiar with how these machines work
+but is not intended to be an exhaustive explanation.
+
+@dircategory Sound
+@direntry
+* tk707: (tk707).        The TK-707 Rhythm Composer.
+@end direntry
+@end ifinfo
+
+@menu
+* Installation::
+* Terminology::
+* Demonstrations::
+* Creating patterns::
+* Playing patterns::
+* Creating tracks::
+* Editing tracks::
+* Playing tracks::
+* Sound maps::
+* Midi files::
+* Tempo changes::
+* Last step changes::
+* Scale changes::
+* Accents and flam::
+* Command line options::
+* Converting MIDI to audio WAV and MP3::
+* Copying::
+* Index::
+@end menu
+
+@c -------------------------------------------------------------
+@chapter Installation
+@c -------------------------------------------------------------
+
+@include INSTALL.texi
+
+@c -------------------------------------------------------------
+@chapter Getting started
+@node    Terminology,,, Top
+@section Terminology
+@c -------------------------------------------------------------
+
+@cindex track
+@cindex pattern
+@cindex step
+
+	Four song @emph{tracks} are available. 
+You can think of a track as a song.
+Tracks are labeled by roman numbers: I, II, III and IV.
+
+	Each track is made of @emph{patterns}, each with 16 @emph{steps}.s
+ You could think of
+a pattern as a bar of music. At each step in a pattern, any of the available
+instruments can be set to play. Once you've made the patterns you want to
+use, you can combine them in any order into any of the four available
+tracks. Any particular pattern can be used in any of the tracks as many
+times as desired.
+
+@cindex group (pattern)
+
+	There are 64 patterns available in 4 @emph{groups} of 16 each.
+Pattern groups are labeled by letters: A, B, C and D.
+The 4 groups are not at all related to the 4 tracks. Patterns from any group are
+available to any track.
+
+@c --------------------
+@node    Demonstrations,,, Top
+@section Demonstrations
+@c --------------------
+@cindex midi output channel
+@cindex @file{.dat} tk707 file
+@cindex demonstration file @file{demo.dat}
+@cindex @code{File->Load Demo} menu
+
+	Some sample patterns and tracks are in @file{demo.dat} which can be
+loaded from the @code{File->Demo} menu. Something exists in each track of this
+file so click the @key{START} button and you should hear something if your
+hardware is set up correctly. Part of this set up is the @emph{midi channel};
+the default midi channel is 10 (the default for D-110 drum sounds). You can
+change the output midi channel via the Midi menu or Shift-click on the
+@key{MIDI CH} button; a new window will appear for midi channel selection.
+
+@cindex @file{.map} tk707 sound map file
+@cindex sound map file
+@cindex file @file{727.map}
+@cindex demonstration file @file{son-montuno.dat}
+@cindex latin percussion
+@cindex @code{Map->Load Standard Sound Map}
+ 	A second demonstration file shows the alternate @emph{727} latin sound
+map. With this sound map, the software emulates a Roland @emph{727}
+latin percussion rhythm composer.
+Loaded from the @code{File->Demo} menu the file @file{son-montuno.dat},
+and then load the latin percussion sound map @file{727.map} from
+the @code{Map->Load Standard Sound Map} menu.
+Set also the tempo to 200 bpm.
+Then, click the @key{START} button.
+
+@cindex file @file{7c7.map}
+	An alternate sound map for latin percussion is @file{7c7.map}.
+The @code{c} in @code{7c7} stands for cuba@footnote{
+An excellent introduction to afro-cuban rhythms can be founded in
+'Les tumbaos de la salsa', by Daniel Genton, Editions
+Musicales Francaise, 2000. email: Topdjembe@@hotmail.com.}.
+can be loaded in the @code{Map->Load Standard Sound Map}. 
+This file has no Roland latin percussion rhythm composer equivalent,
+and has been designed for our pleasure. Click the @key{START} button
+and you will hear the file @file{son-montuno.dat} with another feeling.
+
+
+@cindex brazilian percussion
+@cindex file @file{7b7.map}
+@cindex file @file{carioca.dat}
+Finally, a brazilian sound map @file{7b7.map} is presented.
+The @code{b} in @code{7b7} stands for brazil@footnote{
+This sound map is indented for batucada music for carnaval.} and
+can be loaded together with the @file{carioca.dat} demonstration.
+A good tempo is 220 bpm for the samba carioca.
+
+There is no more demonstration file for these sound maps, since 
+it is time for you to compose your music !
+
+@c -------------------------------------------------------------
+@node    Creating patterns,,, Top
+@section Creating patterns
+@c -------------------------------------------------------------
+@cindex pattern
+
+@subsection Writing pattern
+
+	Shift-click the @key{PATTERN} button to enter Pattern Write mode. While
+@key{START} is not pressed, the 16 instrument/step keys at the bottom of the
+interface are dual purposed.
+
+	Clicking on a key changes which pattern, 1-16, (within the current
+group) is selected for writing. A small lamp above one of the @emph{group pattern}
+buttons indicates the current group. The current group may be changed by
+clicking group pattern button @key{A}, @key{B}, @key{C} or @key{D}.
+
+@cindex instrument
+@cindex step
+
+	Shift-clicking on the @emph{instrument/step} keys selects which instrument
+is selected to be written into the current pattern. Click the @key{START}
+button; now as you click of the instrument/step keys, the selected
+instrument, e.g. @key{Cowbell}, will be added at that step. If the selected
+instrument has already been set at that step, then clicking there will
+remove it. To select another instrument, press the @key{STOP/CONT} button
+then select another instrument using Shift-click on the appropriate
+instrument/step key.
+
+	Continue adding instruments at the required steps to complete the
+pattern. Make all the patterns you will need for a new song.
+
+	A pattern may be cleared of all notes while in Pattern Write mode;
+clicking on the @key{CLEAR} button will raise a dialog window to confirm
+clearing of the current pattern.
+
+@subsection Copy/paste and copy/merge 
+@cindex pattern copy/paste
+@cindex pattern copy/merge
+
+	Another method of creating new patterns is to copy an existing
+pattern and pasting it to a new location, then modifying the new version.
+This is an efficient method of creating a number of patterns which are
+small variations of each other. Select the pattern to be copied and press
+@key{CRTL}-@key{C} (@key{CONTROL} key and @key{C} key together). 
+
+	Now select a new (empty?)
+pattern location and press @key{Ctrl}-@key{V} or @key{Ctrl}-@key{B} 
+to @emph{paste} in the copied notes.
+
+Using @key{Ctrl}-@key{V} will clear the destination location of any notes it already
+contains whereas @key{Ctrl}-@key{B} will @emph{merge} its current contents with the new note
+information.
+
+@subsection The pattern display grid
+@cindex pattern display grid
+
+	The third method uses the pattern display grid. Double-click near
+an instrument/step intersection to add the instrument at that step. If
+the instrument already exists at that step then it is deleted. This is
+probably the easiest way of creating patterns.
+
+@c -------------------------------------------------------------
+@node    Playing patterns,,, Top
+@section Playing patterns
+@c -------------------------------------------------------------
+
+        Click the @key{PATTERN} button to enter Pattern Play mode.
+While the @key{START} button is depressed, the currently selected pattern will play.
+Clicking on different pattern keys at the bottom of the interface will
+select a new pattern (@key{1},..,@key{16}) in the current group. If not currently playing,
+the new pattern is displayed immediately. If a pattern is already playing,
+the new pattern will play when the current pattern is finished.
+
+        Selecting a different group also changes the current pattern,
+i.e. if pattern 7 in group I is selected, then when group 2 is selected
+the new pattern will be pattern 7 in group II. Sixteen patterns are
+available in each of the four groups for a total of sixty-four patterns.
+
+@c -------------------------------------------------------------
+@node    Creating tracks,,, Top
+@section Creating tracks
+@c -------------------------------------------------------------
+
+        Shift-click the @key{TRACK} button to enter Track Write mode.
+
+        To start from an empty track, delete anything already there (Shift-click
+on the @key{CLEAR} button) if necessary. Now select a pattern to add to the track
+and click on the enter key as many times as that pattern is required. Then
+select the next pattern to add and click on the enter key as many times as
+that pattern is required.
+
+        E.g., selecting pattern 3 and clicking on the @key{ENTER} button 4 times,
+then selecting pattern 9 and clicking on the @key{ENTER} button 2 times will
+result in a track of six measures - 4 of pattern 3 followed by 2 measures
+of pattern 9.
+
+        Changes to a track being created can be made.
+@xref{Editing tracks}.
+
+        The currently selected pattern can be heard playing if the @key{START} button
+is clicked. This enables an audible preview of selected patterns prior
+to adding them to the track.
+
+
+@c -------------------------------------------------------------
+@node    Editing tracks,,, Top
+@section Editing tracks
+@c -------------------------------------------------------------
+
+        Shift-click the @key{TRACK} button to enter Track Write mode.
+
+        Track editing is only possible in Track Write mode.
+
+        Deletions of tracks (or parts of them) require confirmation (via a
+dialog window).
+
+        Shift-click on the @key{CLEAR} button deletes all of the current track.
+
+        Ctrl-click on the @key{CLEAR} button deletes the current measure from the track.
+
+        Shift-Ctrl-click on the @key{CLEAR} button deletes the rest of the current track,
+including the current measure. On some systems (including mine!) this
+actually requires the @key{Ctrl} key as well i.e. @key{Shift} + @key{Ctrl} keys 
++ mouse click.
+Consider this a minor bug to be fixed sometime.
+
+        Adding patterns to a track involves selecting a pattern then a click or
+Shift-click on the @key{ENTER} button. Think of Shift-click on @key{ENTER} as an insert
+operation into the track before the current measure. An ordinary click on
+@key{ENTER} is actually a replacement operation i.e. it will replace the current
+measure with the currently selected pattern. However if you're at the end
+of the current track this behaves like an append operation - it adds new
+measures to the end of the track.
+
+        The currently selected pattern can be heard playing if the @key{START} button
+is clicked. This enables an audible preview of selected patterns prior
+to adding them to the track.
+
+        Different parts of the track can be accessed by clicking on the @key{BACK}
+and @key{FWD} buttons. Shift-click on the @key{LAST MEAS} button to go to the end of
+the track. Note that this goes to the measure just past the end of the
+track (ready to write the next measure). An ordinary click on the @key{LAST MEAS}
+button will momentarily show the last (+1) measure while the button is
+held down.
+
+@c -------------------------------------------------------------
+@node    Playing tracks,,, Top
+@section Playing tracks
+@c -------------------------------------------------------------
+
+@cindex track selection
+
+Click on the @key{TRACK} button to enter the @code{Track Play} mode.
+Then click on the @key{START} button and the current track will be
+played.
+
+Select another track, e.g. track IV, by
+Shift-clicking a the corresponding track button:
+@key{Shift}-@key{IV}. Then enter @key{START} for playing the song.
+
+@c -------------------------------------------------------------
+@node Tempo changes,,, Top
+@section Tempo changes
+@c -------------------------------------------------------------
+
+@cindex tempo
+
+	The tempo may be changed in either Track or Pattern mode. The tempo
+is lowered by Clicking in the tempo dial and then Click-Dragging around.
+It  its increased by Click-Dragging to the left from the tempo dial; its increased
+by Click-Dragging to the right.
+
+@cindex midi file
+
+	Tempo changes can't be written into a track. If saving a track as an
+midi file, the whole track will have whatever tempo is selected at the
+time of saving.
+
+@c -------------------------------------------------------------
+@chapter Midi files and sounds
+@node    Midi files,,, Top
+@section Midi files
+@c -------------------------------------------------------------
+@cindex midi file
+
+@cindex @code{Midi File->Save} menu
+
+	Currently only single track Midi files can be exported. When the
+@code{Midi File->Save} is selected a file browser appears into which the name
+of the file is entered. Its not crucial but it is a convention to
+have a @file{.mid} ending on the filename. When a name has been nominated,
+the current track will be exported, including midi channel and tempo
+information i.e. make sure these have the values you want first.
+
+@cindex tempo
+
+	Tempo changes can't be written into a track. If saving a track as an
+midi file, the whole track will have whatever tempo is selected at the
+time of saving.
+
+@cindex volume control
+
+	Volume controls are used when saving a midi file:
+master, accent and volume controls associated to instruments.
+
+@c -------------------------------------------------------------
+@node    Sound maps,,, Top
+@section Sound maps
+@c -------------------------------------------------------------
+@cindex sound map
+@cindex instrument
+@cindex midi note
+@cindex pattern display grid
+@cindex volume control
+
+	TK-707 @emph{sound maps} are mappings of the 16 instrument keys to
+descriptions of their long names, short names, abbreviate name and midi note values.
+The first (longer) names are used in the pattern grid display, while the
+second (shorter) names are used under the 16 instrument keys
+and abbreviations are used under the volume controls. The midi
+note values need to correspond to values recognized by the sound module
+being used with TK-707 (either external or built into a sound card).
+Appropriate values will need to be gleaned from your hardware documentation,
+however the built in values should work on any module conforming to
+the General Midi standard.
+
+@cindex sound map @file{707.dat}
+@cindex sound map @file{727.dat}
+
+The built-in sound map is supplied as an example in the @file{707.map} file.
+A second file, @file{727.map}, is supplied and can be loaded to play with
+the sounds of Roland's TR-727, the latin percussion counterpart of the
+TR-707. Note that the 727 mapping won't work on a 707 because it doesn't
+recognize the necessary range of midi note values. It will work on
+modules (such as Roland D-110) which do recognize the necessary range.
+
+@cindex @code{Map->Load Local Sound Map} menu
+
+Files with similar layout to the supplied @file{.map} can be constructed using a
+text editor and loaded into TK-707 from the @code{Map->Load Local Sound Map} menu.
+
+@cindex @code{Map->Edit Sound Map} menu
+
+Alternatively, the currently loaded sound map can be edited via an editing
+interface which is accessed from the @code{Map->Edit Sound Map} menu. Just change
+the name, short name and midi note values as required and press the @key{APPLY}
+button to apply the new settings to TK-707. The Cancel button will revert
+sound setting to whatever they were before the editing window was started.
+The @key{OK} button will apply the currently edited settings and close the
+editing window.
+
+As new midi note values are entered for an instrument, the sound that they
+access in the midi sound module can be previewed using the @key{TEST} buttons.
+To speed the process of finding suitable sounds, three keyboard/mouse
+shortcuts are provided:
+@itemize @bullet
+@item
+	@key{Shift} + @key{Mouse button 1} in the "Note" widget
+	increments the value by 1 and test plays the new sound;
+@item
+	@key{Ctrl} + @key{Mouse button 1} in the "Note" widget
+	decrements the value by 1 and test plays the new sound;
+@item
+	@key{Mouse button 2} in the "Note" widget and dragging up or down
+	continuously decrement or increments the note value and test plays.
+the new sound.
+@end itemize
+
+@cindex @code{Map->Save Sound Map} menu
+
+Any editing of sound maps are lost if TK-707 is closed down without saving
+the sound map. A sound map can be saved using the @code{Map->Save Sound Map} menu
+item. A file suffix of @file{.map} is recommended (but not absolutely required).
+
+@c -------------------------------------------------------------
+@chapter Ternary feelings and poly-rhythms
+@node    Scale changes,,, Top
+@section Scale changes
+@c -------------------------------------------------------------
+
+@cindex scale
+
+	This feature is related to fast figures and 6/8 figures.
+
+	Four scales are available on each pattern.
+Click on the @key{SCALE} in Pattern Write mode for changing the scale
+of the current pattern.
+A small lamp on the left of the musical score score
+indicates the current scale. For each scale, a vertical bar
+indicates the duration of a whole note.
+
+@subsection Binary 4/4 measures
+@cindex whole note decomposition
+@c
+	On the first scale, the whole note duration is 
+	decomposed into sixteenth. Each sixteenth is associated to the
+	a step of the pattern. 
+	There is 16 sixteenth in the pattern
+	if the last step is set to 16, and then
+	the total duration of the pattern is those of a whole note.
+
+	This is the default scale when creating pattern
+	associated to a 4/4 measure.
+
+@subsection Binary 2/4 measures
+
+	For the second scale, the whole duration is
+	decomposed into eighthes. Each eighthes is associated
+	to a step of the pattern. When the last step is set to
+	16, there is 16 eighthes in the pattern, and the total duration
+	of the pattern is those of a half whole.
+	When playing such pattern, lamps associated to steps
+	are turning twice faster !
+	The pattern is then a 2/4 measure.
+	The whole duration should be recovered in a song by
+	inserting two of such patterns.
+
+	This scale is designated for fast schemes on binary
+	songs.
+
+@subsection Triplets and composed 12/4 measures
+@cindex ternary feeling
+@cindex last step
+
+	On the third scale, the whole duration is decomposed into
+	four third of a quarter. Each third of a quarter is
+	associated to a step of the pattern. 
+
+	When the last step is set to 12,
+	the total duration of the pattern is those of a whole note @pxref{Last step changes}.
+	The pattern is then a 12/4 measure.
+
+ 	Alternatively, the last could be set to 9 or 15 and then
+	the pattern is a 9/4 or a 15/4 measure, respectively.
+
+	This pattern is designated for ternary-based measures or
+	for inserting ternary feelings (triplets) into
+	a binary song.
+
+@subsection Sextuplets and composed 12/8 measures
+@cindex demonstration file @file{son-montuno.dat}
+@cindex poly-rhythms 12/8
+@c
+	Finally, the fourth scale decomposes the whole duration 
+	into two sextuplets (12 times 1/6 of a quarter sextuplets).
+	Each 1/6 of a quarter is associated to a step of the
+	pattern.
+	When the last step is set to 12. @xref{Last step changes},
+	the total duration of the pattern is those
+	of a half whole note.
+	The whole duration should be recovered in a song by
+	inserting two of such patterns.
+	The pattern is then a 12/8 measure.
+
+@cindex last step
+
+	Since each quarter is represented by 6 steps on
+	the pattern, we are able to superpose binary and ternary
+	schemes, i.e. poly-rhythmic effects.
+
+	The @file{son-montuno.dat} demonstrates such effects.
+
+	This pattern is designated for fast schemes on
+	ternary based measures or
+	for inserting ternary feelings (triplets) into
+	a binary song.
+
+
+@c -------------------------------------------------------------
+@node    Last step changes,,, Top
+@section Last step changes
+@c -------------------------------------------------------------
+
+@cindex last step
+
+Remarks that the last step is not automatically
+changed from 16 to 12 when changing the scale of a pattern. 
+It could be chosen to 15 for the scale 3, for instance.
+
+Click on the @key{LAST STEP} in Pattern Write mode for changing the scale.
+A new window will appear for last scale
+selection of the last step associated to the current pattern.
+
+@c -------------------------------------------------------------
+@chapter Accents and flam
+@node    Accents and flam,,, Top
+@section Accents
+@c -------------------------------------------------------------
+
+@subsection Inserting accentuated notes
+
+@cindex accent
+@cindex grid marker: orange
+@cindex pattern step write
+@cindex pattern tap write
+
+There is two available accents: a weak and a strong one.
+Use the weak accent 
+by clicking on the @key{ACCENT} button in Pattern Step Write 
+or Pattern Tap Write modes. 
+The "accent" text at the bottom of the button becomes orange.
+Enter then notes as usual: notes are @emph{weakly accentuated} and
+the circle marker is orange, instead of the usual grey.
+
+@cindex grid marker: red
+
+Use the strong accent by clicking a second times on the @key{ACCENT} 
+button.
+Now, the "accent" text becomes red.
+Then, enter notes: they are @emph{strongly accentuated}
+and the circle marker is red too.
+
+Then, click a third times on the @key{ACCENT} button.
+The "accent" text at the bottom of the button comes back to
+the initial foreground color. 
+When you insert notes, they will be no more accentuated.
+
+In Pattern Step Write mode, you could also insert notes
+by using the @key{1},..,@key{16} step touchs.
+Conversely, in Pattern Tap Write, you could also 
+use the instrument keys, e.g. @key{Cowbell}.
+
+@subsection Controlling the accent intensity
+@c -----------------------------------------
+
+@cindex volume control
+
+The weak and strong accent intensities could be
+modulated by using the volume control labeled "AC".
+Moves the label control up and down. 
+When up, accent effects are maximum while when down,
+there is no more perceptible accent effects.
+The volume control of accents is global.
+
+@c -----------
+@section Flam
+@c -----------
+
+@cindex flam
+@cindex grace note
+@cindex pattern display grid
+@cindex grid marker: star
+
+@subsection Inserting flams
+@c ------------------------- 
+ 
+Flam is a kick note written ahead of the main beat,
+and takes on the effect of a @emph{grace note}.
+Control-double-click 
+(@key{Control}-@key{Button-1} two times)
+near an instrument/step intersection
+to insert a flam note for this instrument at that step.
+Instead of the circle marker, a star marker represents the flam note
+at the selected intersection @pxref{Creating patterns}.
+
+@cindex Pattern Step Write
+
+There is another way for inserting flams:
+In Pattern Step Write mode, click the @key{START} button; 
+Select an instrument by shift-clicking on an instrument/step key,
+e.g. @key{Shift}-@key{Snare}.
+Now, as usual, as you click on the instrument/step keys, the selected
+snare will be added at that step 4.
+Instead of this, if you control-click on the instrument/step keys, 
+e.g. @key{Ctrl}-@key{4}, then a snare note with a flam is inserted
+at step 4.
+
+@cindex Pattern Tap Write
+Conversely, in Pattern Tap Write mode, enter a flam by 
+using the @key{Ctrl}-@key{Cowbell}.
+ 
+@cindex accent
+
+Flam could be combined with accents, and the associated
+star marker becomes orange or red, depending on the weak or strong accent.
+
+@subsection Controlling the flam interval
+@c -------------------------------------- 
+@cindex flam interval
+
+The time between the grace note and its following main note
+can be varied in the range 0:4.
+The default value is 2.
+A zero value means that flam is off.
+Each pattern has an associated flam interval value.
+
+Click on the @key{FLAM/SHUFFLE} button in Pattern Write mode
+for changing the flam interval of the current pattern.
+A new window will appear for the flam interval selection.
+
+@c -------------------------------------------------------------
+@appendix Command line options
+@node    Command line options,,, Top
+@c -------------------------------------------------------------
+
+@section Synopsis
+@example
+   tk707 options...
+@end example
+
+@section  Options
+@table @code
+ @item -l
+	List the available sound ports
+ @item -p @var{port}
+	Use this port
+ @item -small
+ @item -medium
+ @item -normalsize
+	Set the size of the window, since some screens are too small
+   	for the whole window.
+ @item -display @var{screen id}
+	Display to use.
+@cindex @code{xwininfo}
+ @item -use @var{window id}.
+	Id of window in which to embed application.
+	See @code{xwininfo}.
+ @item -geometry
+	Initial geometry for window
+ @item -colormap
+	Colormap for main window
+ @item -name
+	Name to use for application
+ @item -sync
+	Use synchronous mode for display server
+ @item -visual
+	Visual for main window.
+ @item -h
+ @item -help
+	Print short help.
+@end table
+
+@c -------------------------------------------------------------
+@appendix Converting MIDI to audio WAV and MP3::
+@node    Converting MIDI to audio WAV and MP3,,, Top
+@c -------------------------------------------------------------
+@cindex midi file format
+@cindex audio file format
+@cindex midi-to-audio converters
+@cindex @file{.wav} audio file
+@cindex @file{.mp3} audio file
+@cindex @file{.mid} midi file
+@cindex @code{timidity} midi-to-wav converter
+@cindex @code{lame} wav-to-mp3 converter
+@cindex @code{mpg123} mp3 player
+
+This small annex explain how to convert your output
+midi file to formatted audio file (ex. RIFF WAVE)
+and compressed MP3 audio files. We assume your have
+converted your file @file{salsa.dat} into MIDI format @file{salsa.mid}
+in the @code{tk707} environment @pxref{Midi files}.
+
+Then enter the commands:
+@example
+        timidity bolero.mid -Ow bolero.wav
+        lame -b128 bolero.wav bolero.mp3
+@end example
+and compare the file sizes:
+@example
+        ls -al 
+	-rw-r--r--   1 maria martinez     1051 Mar  9 09:20 son-montuno.mid
+	-rw-r--r--   1 maria martinez  3937324 Mar  9 09:22 son-montuno.wav
+	-rw-r--r--   1 maria martinez   493056 Mar  9 09:22 son-montuno.mp3
+@end example
+The MIDI file does not contains the sounds. It contains only the score
+of your music and a MIDI render is required to heat it.
+The audio WAV and MP3 contains the complete sound and are suitable
+exports, such as CD-ROM writers.
+Moreover, the MP3 file is compressed by rougthly a factor ten.
+The MP3 audio files can be played back by popular mp3  players  such
+as  mpg123.
+
+The @code{timidity} tool is a midi-to-wav converter available
+at @url{http://www.goice.co.jp/member/mo/timidity}.
+
+The @code{lame} tool is a wav-to-mp3 convarter available
+at @url{http://www.sulaco.org/mp3}.
+
+@c -------------------------------------------------------------
+@node Copying,,, Top
+@include gpl.texi
+@c -------------------------------------------------------------
+
+
+@c -------------------------------------------------------------
+@node Index,,, Top
+@unnumbered Index
+@c -------------------------------------------------------------
+
+@printindex cp
+
+@c -------------------------------------------------------------
+@c             TABLE OF CONTENTS
+@c -------------------------------------------------------------
+@shortcontents
+@contents
+@bye
+@c -------------------------------------------------------------

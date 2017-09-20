@@ -1,0 +1,36 @@
+TK707 README
+
+This program is intended to mimic the operation the operation of
+Roland's TR-707 Rhythym Composer (successor to the TR-606 and
+precursor to TR-808 and TR-909).
+
+Installation:
+
+    See the INSTALL file.
+    Briefly:
+
+	 configure
+	 make install
+
+    and then run:
+
+	 tk707
+
+Documentation:
+
+    After installation, a documentation is generated is various
+    formats: info for emacs, HTML, Postscript.
+
+    This documentation is also available on the TK-707 home page:
+
+        Australie: http://www.vislab.usyd.edu.au/staff/chris/tk707
+        Europe:    http://www-lmc.imag.fr/lmc-edp/Pierre.Saramito/tk707
+
+
+    This document is a brief statement of requirements to run tk707
+    and a very introductory explanation of how to run it. This might
+    be just enough for people not familiar with how these machines work
+    but is not intended to be an exhaustive explanation.
+
+Enjoy TK-707 !
+

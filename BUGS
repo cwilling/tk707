@@ -1,0 +1,13 @@
+BUGS
+====
+
+    Well, well, they must be there...
+
+
+* gcc-3.x and later no longer accept multi-line string literals.
+  Such strings are generated from tcl to C by the tcl2c.c converter.
+  gcc-2.x or previous versions shoud be used.
+
+* Bypass fader : should use the full volume level, while using faders
+  reservs some volume for accents.
+

@@ -1,0 +1,12 @@
+#!/bin/sh
+args=""
+for x in $*; do
+    case $x in
+    -h|-help) args="$args --help";; # tcl/tk catch these options...
+    *)        args="$args $x";;
+  esac
+done
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+echo | @bindir@/tk707bin $args
+

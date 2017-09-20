@@ -1,0 +1,82 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.TH TK707 1 "March  7, 2001"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+tk707 \- a drum machine
+.SH SYNOPSIS
+.B tk707
+.RI [ options ]
+.SH DESCRIPTION
+.B tk707
+emulates the Roland TR-707 Rhythm Composer.  It can be used with
+external MIDI hardware, a capable sound card or Timidity plus any
+sound card supported by ALSA.  Output can also be saved to a file.
+The complete documentation in info and html formats are
+available in \fBtk707.info\fR and \fBtk707.html\fR, respectively.
+.SH EXAMPLES
+.B tk707 -l
+.br
+.B tk707 -p 64:0
+.br
+.B tk707 -p 128:0 -display eve.imag.fr:0.0
+.SH OPTIONS
+.TP
+.B \-l
+List the available ALSA sound output ports.
+.TP
+.B \-p port
+Use this port
+.TP
+.B -small | -medium | -normalsize
+        Set the size of the window, since some screens are too small
+        for the whole window. 
+
+.TP
+.B \-display
+Display to use (example: \fImyhost\fR:0.0).
+.TP
+.B \-use \fIWindow id\fR
+Id of window in which to embed application. The \fIWindow id\fR
+can be obtained e.g. by using \fBxwininfo\fR(1).
+.TP
+.B \-geometry
+Initial geometry for window
+.TP
+.B \-name
+Name to use for application.
+.TP
+.B \-sync
+Use synchronous mode for display server.
+.TP
+.B \-visual
+Visual for main window.
+.TP
+.B \-colormap
+Colormap for main window.
+.TP
+.B \-h | \-help
+Print very short help.
+.SH SEE ALSO
+.BR timidity (1), xwininfo(1).
+.SH AUTHORS
+Chris Willing 
+.B <chris@vislab.usyd.edu.au>
+.br
+Pierre Saramito 
+.B <pierre.saramito@imag.fr>
+.SH HOME PAGE
+.B http://www-lmc.imag.fr/lmc-edp/Pierre.Saramito/tk707
+.br
+.B http://www.vislab.usyd.edu.au/staff/chris/tk707
+

@@ -1,0 +1,202 @@
+   The TK-707 installation requires:
+     	
+
+   * C compiler to compile the source code.  	
+
+   * TCL/TK version 8.0 (I assume later versions will work too),
+             available free from <http://www.scriptics.com> 	
+
+   * Alsa audio installation (at least version 0.5.0),
+     available free from <http://www.alsa-project.org> 	
+
+   * a sound card supported by Alsa.
+
+   and, at least one of these MIDI renders:
+     	
+
+   * an internal MIDI render hardware in your card.  	
+
+   * an external MIDI module with drum sounds (Tested Roland D-110 and
+     TR-707).  	
+
+   * or any Alsa supported basic 		sound card together with the
+     `timidity' software 		MIDI sequencer installed.
+
+   Clearly, if you have neither a MIDI card nor an external MIDI module,
+you can successfully manage MIDI files by a MIDI software sequencer.
+See below.
+
+   So far tested on
+     	
+
+   * Linux - Slackware 7.0 (kernel 2.2.14) with ESS1868 sound card 	
+
+   * Linux - Redhat 6.0 (kernel 2.2.5) with Ensonic 1370 sound card 	
+
+   * Linux - Mandrak (kernel 2.2.13-7mdk)
+
+Building `tk707'
+================
+
+     	configure
+     	make
+
+   The program consists of Tcl/Tk for the gui and C code for outputting
+the midi data.  The Tcl/Tk code is compiled with the C code.  The
+compiled target `tk707' is a self contained binary.
+
+Configure options
+=================
+
+   During the configuration step, you could also provide to the
+`configure' script some non-standard locations of the Alsa or Tcl/Tk
+libraries:
+     	configure --with-alsa-prefix=/usr/sound/lib \
+     	  --with-alsa-inc-prefix=/usr/sound/include \
+     	  --with-tcl-includes=/new/include   --with-tcl-libs=/usr/new/lib  \
+     	  --with-tk-includes=/usr/new/include --with-tk-libs=/usr/new/lib
+     	make
+
+   Enter `configure --help' for a complete list of available options.
+
+   It could also be useful to send compiler options to the `configure'
+script.
+     	CFLAGS="-O0" configure
+     	make
+   Indeed, by default, `gcc' compiler optimization flags are set to the
+maximum, i.e `-O9'. This is not supported for old `gcc' versions, where
+this feature failed on some combinations of Linux kernel versions and
+`gcc' version (e.g. Mandrake with kernel `Linux-2.2.13-7mdk' and
+`pgcc-2.91.66'). Either update our environment or use lower
+optimization flags.
+
+Installation
+============
+
+     	make install
+
+   The default installation directory is `/usr/local/bin' but this can
+be changed by using an extra configuration option:
+
+     	configure --prefix=/users/angela/music
+     	make install
+
+   will build and install `tk707' into the installation directory
+`/users/angela/music/bin' as `tk707'.
+
+Running
+=======
+
+   If installation was done as in previous step, and assuming the
+installation directory is in your execution path, then the program is
+started with
+
+     	tk707
+
+   	A sample song is in `demo.dat' which can be loaded from the
+`File->Load Demo' menu. After loading, click the <START> button and you
+should hear something if your hardware is set up correctly.
+
+   When `tk707' is first started, a suitable output port needs to be
+selected.  A selection gui comes up before the main TK-707 window to
+make this choice.  The list on the right hand side should contain one
+or more entries from which to choose (don't worry about the input port
+list on the left).  Double click on the available output port you want
+to use, and it should be entered into the Selected Output box near the
+bottom. Now you can click on the OK button to use the selected output
+port for this invocation of TK-707. You can also click the SAVE button
+first to save this information (in `~/.tk707rc') so that you don't need
+to make the selection next time you run TK-707. Note that `~/.tk707rc'
+is a plain text file which can be edited by hand if you want to.
+
+   Alternatively, if you know what port you want to use, run `tk707'
+with the `-p' option, e.g.
+     	tk707 -p 65:0
+
+   Use of the `-p' option overrides any setting in the `~/.tk707rc'
+file.
+
+   A list of suitable ports can also be obtained with the `-l' option,
+e.g.
+     	tk707 -l
+
+Building the documentation
+==========================
+
+   The documentation in `.info' format, suitable for emacs, is
+contained in the distribution. You can browse it:
+     	info -f tk707.info
+
+   If you have the `texi2html' tool, the `html' version has been
+generated during the installation:
+     	netscape tk707_toc.html
+
+   If you have TeX installed, a pretty version of the documentation is
+available:
+     	make dvi
+     	xdvi tk707.dvi
+
+   and also for printing:
+     	dvips tk707.dvi -o tk707.ps
+     	lpr tk707.ps
+
+   Now, read the documentation and enjoy `tk707'.
+
+Comments, bug corrections and future versions
+=============================================
+
+   We are keen for people to try it and send comments and suggestions.
+
+   Please, send comments, corrections, additions, bugs etc.. to
+<chris@vislab.usyd.edu.au> and <pierre.saramito@imag.fr>
+
+   Future versions from the TK-707 home page:
+     	Australie: <http://www.vislab.usyd.edu.au/staff/chris/tk707>
+     Europe: <http://www-lmc.imag.fr/lmc-edp/Pierre.Saramito/tk707>
+
+My card has no midi render...
+=============================
+
+   Don't worry, you are able to hear midi file with a basic audio sound
+card: the `timidity' code is able to provides an Alsa sequencer
+interface which receives events and plays it in real-time.
+
+   `timidity' is a public domain code available at
+<http://www.goice.co.jp/member/mo/timidity>.
+
+   On this mode, `timidity' works purely as software (real-time) midi
+render.  There is no scheduling routine in this interface, since all
+scheduling is done by Alsa sequencer core.
+
+   So, download `timidity' (at least version 2.10.0) and install as
+follow:
+             configure --enable-server --enable-alsaseq --enable-alsatest \
+     		--enable-audio=alsa,wav,au,aiff,list,oss
+     	make install
+
+   `timidity' software emulates the best sound cards.  It requires some
+Gravis Ultra Sound (GUS) patches describing musical instruments.  The
+public domain EAW sound patch suite can be downloaded at
+<http://www.stardate.bc.ca/eawpatches/html/default.htm> This his a
+complete and high quality library, updated frequently.  Especially,
+download the `gsdrums' percussion instrument library.
+
+   Install these files in the `timidity' directory, usually
+`/usr/share/timidity'.
+
+   For invoking Alsa sequencer interface, run `timidity' as follows:
+           timidity -iA -B2,8 &
+
+   The fragment size can be adjustable.  The smaller number gives
+better real-time response.  Then `timidity' shows new port numbers
+which were newly created (128:0 and 128:1 below).
+
+   Finally, run `tk707':
+           tk707 -p 128:0
+
+   The `timidity' render is very flexible and rich, since you can add
+any instrument in your library by using GUS patch files.  This modular
+approach is not always supported by all hardware renders.  Thus,  the
+software MIDI render solution is fruitful, and could be installed, even
+if you have a hardware or external MIDI solution.
+

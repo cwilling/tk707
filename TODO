@@ -1,0 +1,218 @@
+ 
+   ----------------------------
+   lien avec lilypond
+   ----------------------------
+- apres avoir utilise lily pour faire des
+  partitions, specifier un format de fichier 
+  qui rend exactement le .midi 
+	- volume, flame, ...
+	- changement de tempo
+  	- etc...
+  et qui sorte une partition de bonne qualite'
+  avec possibilite' de ne sortir qu'un motif (pattern)
+  ou qques instruments dans un motif, ou un extrait de plage
+  => le format de fichier est a la fois un morceau de 
+  musique et une partition : .tk7
+  => tk7-to-ly (tk49ly ?)
+  on doit pouvoir faire des inclusions dans des 
+  documents latex, etc...
+- l'interpreteur relit ces fichier est est un editeur
+  pour cela 
+- voir les clics dans xdvi qui renvoient dans emacs 
+  => idem dans l'editeur ?
+     fenetre de partition, on clique => on va dans editer
+     a` cet endroit
+     
+   ----------------------------
+   sortie midi en direct
+   ----------------------------
+- ce qui permet de moduler le tempo
+  et les volumes des instruments pendant
+  l'enregistrement.
+   ----------------------------
+   touche LOOP en bas a` gauche
+   ----------------------------
+- a` la place de SHIFT 
+    - en pattern, c'est normal => par defaut
+    - en track,   c'est nouveau => non par defaut 
+  => c'est un radio-bouton
+   ---------------------
+   internationaliser
+   ---------------------
+- avec la lib correspondante
+   ---------------------
+   permuter
+   ---------------------
+- les numeros des instruments: en faisant shift-click
+  sur une etiq d'instr, puis en le deplacant sur 
+  l'etiq d'un deuxieme => les 2 sont permute's et
+  toutes les refs dans les patterns aussi !
+
+   ---------------------
+   trommler
+   ---------------------
+- convert files <-> with tk707
+   ---------------------
+   doc
+   ---------------------
+- documenter les bloquages de son (siflets, etc)
+   ---------------------
+   entree/sortie
+   ---------------------
+- warning si fichier modifie' et non sauvegarde
+  - a` la sortie
+  - au chargement d'un autre fichier
+- load file : on prend par defaut le dir precedent,
+  mais il y a confusion des dirs .dat et .map
+  => qd on charge 1 map std, puis un .dat on se retrouve
+  dans le mauvais dir.
+- sorties .wav .mp3, ...
+   ----------------------
+   enchainer les patterns
+   ----------------------
+- [shift] click-drag-drop sur les bouttons
+  puis pattern-play en boucle sur le groupe de patterns
+  => click : repere le bouton de depart, etat 1
+     drag  : ne fait rien, on deplace avec la souris
+     drop  : relache la souris sur le  bouton d'arrivee
+	     si c'est avec shift, alors c'est lie'
+  Question: comment detercter un key-release-b1 sur un bouton
+    sur lequel on a pas le key-press ?
+
+   ----------------------------------------------------------
+   partition reactive
+   ----------------------------------------------------------
+-  affichage de last-step et scale en eclairant
+   le morceau de la partition correspondant, quel que
+   soit le mode lect/ecr.
+- cliquer sur une note => saisie de last-step et scale
+- en mode pattern write/tap, la partition devient orange et active,
+  sinon, elle est grise. qd on passe le curseur sur une
+  note, elle reagit n changeant de couleur.
+   ------------------
+   etiquettes du bas
+   ------------------
+- il y a des groupes encadres :
+  Question: comment encadrer simplement, tout en gardnt
+  l'alignement du texte avec les boutons; 
+  simplement, sans faire un calcul de coords ?
+   ------------------
+   partition symbolique
+   ------------------
+- idem: comment encadrer les triolets tout en gardnt l'alignement.
+  simplement, sans faire un calcul de coords ?
+   -----------
+   la vraie boite
+   -----------
+- interagir: lire/ecrire les pattern/track; lire le midi de
+la boite ?
+   -------
+   effets
+   -------
+- dial tempo en relief !
+   ------------------
+   plus de patterns
+   ------------------
+- pour "savor", il faudrait le double. Faire un ascenceur
+horizontal pour aller + loin que ABCD...
+
+   -------
+   Shuffle
+   -------
+shuffle 0..4 : propriete du motif
+Devrait etre assez facile en midi
+pour l'ecoute, reste la carte...
+   ------------------------
+   echelles et les triolets
+   ------------------------
+- l'ecoute directe ne marche pas
+- quand on change de pattern, les ampoules last-step ne sont pas
+  remises a` jour !
+- a` l'ecoute, les lampes tournates ne changent pas de vitesse
+  lors des triolets sur les tracks, ce qui n'est pas du plus bel effet !
+- clear pattern n'efface pas last-step ni scale : est-ce correct ?
+- Faudra aussi remettre a` jour tk2ly pour lire les
+  formats avec des token VERSION_05, VERSION_06....
+   ------------------
+   fusion
+   ------------------
+- de deux fichiers .dat: reunion des pattern commnunes,
+et renommage des patterns et tracks pour avoir 1 fichier
+resultat.
+   ------------------
+   Le son 727
+   ------------------
+- les fla seraient plus jolis si les ticks de ALSA etaient
+  choisis plus fins ?
+- le sifflet ne s'arrete pas qd on fait stop dans un morceau
+  par ex. une pattern qui tourne en mode edit pattern
+  => stop doit arreter tous les sons courants
+- les patches qui ont "keep=env keep=loop" ne sont pas
+  arretes par la coupure de son (stop) en pattern et track play
+	Note on, velocity=0
+  qui remplace le 
+	Note off
+- faudrait mettre 1 prop aux instruments pour savoir
+  si on les coupe tres vite ou si on laisse la note
+  s'epanouir... => nouveau format de .map
+   ----------
+   petits pbs
+   ----------
+Bugs
+Certaines fonctionalites manquent encore...
+- La touche stop/cont ne fait que stop et pas cont...
+- la sauvegarde sur fichier ne se souvint pas du prefix (dat/midi) 
+du fichier en cours d'utilisation...
+- les menus fichiers proposent *.mid et *.dat pour les 2 manips mid/dat
+ce qui n'a pas de sens
+- edition des sound map : lorsque le champ numero est vide, ca ne joue
+  rien... non: ca envoie un msg d'erreur.
+- sortie midi:
+- doc .info: ca ne s'affiche que pour l'installation
+- Les message devraient s'afficher avec les groupes A,..,D
+  et les plages I..IV au lieu des chiffres arabes.
+- en echelle 2 (binaire rapide), les lampes ne sont pas syncro
+  avec ce qu'on ecoute...
+- quand on entre dans track play et qu'on fait last-meas,
+  les ampoules n'affichent pas la last-meas, et elle n'apparait
+  pas a` l'ecran ppal; par contre, on fait BACK, puis FWD, la`
+  on l'a.
+
+   ---------------------
+   interface
+   ---------------------
+- ajouter les annotations manquantes
+- la fenetre globale est grande: sur un ecran 15''
+  on risque d'en perdre un morceau: prendre la geom et 
+  utiliser ces tailles.
+- resize : redimensionner tout pour faire un << maxspec >>
+  lors d'un evt resize du wm. eventuellement, changer les
+  polices de carac.
+
+   ---------------------
+   fichiers
+   ---------------------
+- Mettre les sound-map dans les .dat !
+Sinon c'est ambigu...
+- changer le format de fichier pour pouvoir l'editer
+facilement a` la main. Style .mfield...lex & yacc ?
+
+   --------------------
+   tk2ly
+   --------------------
+Essayer de l'intergrer: sortie .ly, .dvi. .ps, .pdf
+
+   ------------------
+   Edition des plages
+   ------------------
+Visualiser les plages style ghostview
+avec effacer, inserer, copier/coller, ...
+=> voir e/s avec nouveau format fichier.
+   ------------------
+   Nommer
+   ------------------
+Pour s'y retrouver sur les grandes plages
+mettre des noms... idem pour les motifs;
+par defaut, s'il n'y a rien, on peut mettre
+le numero a` l'affichage
+

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.2
+Name=Tk707 midi rhythm composer
+Name[fr]=Tk707 : boite à rythme midi
+Comment=Mimic the Roland's TR-707 rhythm composer
+Comment[fr]=Emule la boite à rythme Roland TR-707
+Exec=tk707
+Icon=tk707
+Terminal=false
+Type=Application
+Categories=Application;AudioVideo;Player;
+MimeType=

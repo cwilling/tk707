@@ -1,0 +1,27 @@
+march 12, 2001
+	* version 0.10 released.
+        * GUI becomes dot-per-inch independent: 
+          remplace bitmap images by tcl/tk code.
+        * add sizing options for small screens.
+        * fix a portage problem on debian.
+
+march 9, 2001
+	* version 0.7 released.
+	* support for flam and accents: two levels of accents
+	  and four possible flam intervals.
+	* many minor bug fixes.
+
+september 2, 2000
+	* version 0.6 released.
+	* enable 6/8 and polyrythms patterns by using a change of
+	  scale on a pattern. Hear the son-montuno.dat demo.
+        * insertion of a score in the layout, clone of the
+	  Roland 707 and 727 drum machine.
+	* add instruments abbreviations for the volumes widgets.
+	* change the felling of the tempo dial: use an angular
+	  dependence, associated to the circular mouvement of
+	  the mousse.
+        * use autoconf & automake
+	* update and restructure the documentation: texinfo support; 
+	  html, dvi and postscript formats generated.
+
